@@ -12,7 +12,11 @@ app.use(bodyParser.json());
 app.use(cors());
 var PORT = 3000 || process.env.PORT;
 
-
+const clientType=
+{
+    ADMIN: 'admin',
+    AGENT: 'agent'
+}; 
 
 app.get('/',(req,res)=>
 {

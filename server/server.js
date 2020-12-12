@@ -42,7 +42,7 @@ app.post('/api/v1/signUp',(req,res)=>
         user.userName = userName;
         user.password = password;
         user.email = email;
-        user.approved = true;
+        user.approved = false;
         user.clientType = clientType.AGENT;
         user.loginLastDate = new Date().toLocaleString(undefined, {timeZone: 'Asia/Kolkata'});
         if(user)
@@ -72,21 +72,19 @@ app.post('/api/v1/login',async(req,res)=>
     try
     {
         const {userName,password} = req.body;
-        var data = await fetchUser(req.body);
-        var database =[];
         dbConnect();
         User.find(req.body,(err,response)=>
         {
             if(err)
             {
                 console.log(err);
-                res.status(500).json({message:"Internal server error.",data:""});
+                res.status(500).json({message:"Internal server error.",data:{}});
             }
             else
             {
-                console.log(response[0].approved);
                 if(response[0] != undefined && response[0].approved)
                 {
+                    console.log(response[0].approved);
                     var data = [];
                     response.forEach(element => {
                         data.push(element);
@@ -95,7 +93,7 @@ app.post('/api/v1/login',async(req,res)=>
                 }
                 else
                 {
-                    res.status(500).json({message:"Internal server error.",data:""});
+                    res.status(201).json({message:"username or password is incorrect.",data:{}});
                 }
             }
         });
@@ -104,7 +102,7 @@ app.post('/api/v1/login',async(req,res)=>
     catch(e)
     {
         console.log(e);
-        res.status(201).json({message:"Internal server error.",data:""});
+        res.status(201).json({message:"Internal server error.",data:{}});
     }
 });
 

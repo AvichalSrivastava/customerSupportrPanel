@@ -3,12 +3,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import DashboardLayout from './layouts/DashboardLayout';
 import Login from './layouts/Login';
 import './vibe/scss/styles.scss';
+import {connect} from 'react-redux';
 
 class App extends React.Component 
 {
+
   renderLogin()
   {
-    if(true)
+    if(!this.props.Mode.loginData.login)
     {
       return(
         <Route component={Login} />
@@ -34,4 +36,12 @@ class App extends React.Component
       </div>);
   }
 }
-export default App;
+
+const mapStateToProps = state =>
+{
+    console.log(state);
+    const {Mode} = state;
+    return ({Mode});
+};
+
+export default connect(mapStateToProps) (App);

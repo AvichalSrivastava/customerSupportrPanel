@@ -18,6 +18,7 @@ export default class DashboardLayout extends Component {
       sidebarCollapsed: false,
       isMobile: window.innerWidth <= MOBILE_SIZE,
       showChat1: true,
+      showChat2:true
     };
   }
 
@@ -41,7 +42,7 @@ export default class DashboardLayout extends Component {
     document.addEventListener('click', handleClickAccessibility);
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillMount() {
     window.removeEventListener('resize', this.handleResize);
   }
 
@@ -49,8 +50,8 @@ export default class DashboardLayout extends Component {
     this.setState(prevState => ({ sidebarCollapsed: !prevState.sidebarCollapsed }));
   };
 
-  closeChat = () => {
-    this.setState({ showChat1: false });
+  closeChat = (chat) => {
+    this.setState({ chat: false });
   };
 
   render() {
@@ -89,19 +90,22 @@ export default class DashboardLayout extends Component {
             </Page>
           </div>
           <Footer>
-            <span>Copyright © 2019 Nice Dash. All rights reserved.</span>
+            <span>Copyright © 2020 Avichal Srivastava. All rights reserved.</span>
             <span>
               <a href="#!">Terms</a> | <a href="#!">Privacy Policy</a>
             </span>
             <span className="ml-auto hidden-xs">
-              Made with{' '}
+              Made with {' '}
               <span role="img" aria-label="taco">
-                🌮
+                Love
               </span>
             </span>
           </Footer>
           <Chat.Container>
             {this.state.showChat1 && (
+              <Chat.ChatBox name="Messages" status="online" image={avatar1} close={this.closeChat} />
+            )}
+            {this.state.showChat2 && (
               <Chat.ChatBox name="Messages" status="online" image={avatar1} close={this.closeChat} />
             )}
           </Chat.Container>

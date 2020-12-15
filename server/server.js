@@ -10,7 +10,7 @@ var fetchUser = require('./Database/dbConnection');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(cors());
-var PORT = 3000 || process.env.PORT;
+var PORT = process.env.PORT;
 
 const clientType=
 {
@@ -90,6 +90,11 @@ app.post('/api/v1/login',async(req,res)=>
                         data.push(element);
                     });
                     res.status(200).json({data:data[0],message:"success"})
+                }
+                else if(response[0] != undefined && !response[0].approved)
+                {
+                    console.log(response[0].approved);
+                    res.status(201).json({data:{},message:"Sorry!! Your profile is not yet approved by the admin."})
                 }
                 else
                 {

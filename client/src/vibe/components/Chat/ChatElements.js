@@ -30,7 +30,7 @@ function ChatDisplay({ currentUserImage, height }) {
         <span className="pull-left w-32 m-r-sm">
           <img src={currentUserImage} alt="." className="w-full img-circle" />
         </span>
-        <ChatMessage message={'Hello'} />
+        <ChatMessage message={'Hello Avichal.'} />
       </div>
     </div>
   );
